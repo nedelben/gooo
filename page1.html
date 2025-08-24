@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yoobify Cosmic Signup</title>
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    font-family: 'Baloo 2', sans-serif;
+    background: #000010;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* خلفية الكون والشفق */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(0,255,255,0.08), rgba(0,128,255,0.04), rgba(0,255,128,0.03));
+    filter: blur(80px);
+    animation: auroraMove 60s ease-in-out infinite alternate;
+    z-index: 0;
+  }
+  @keyframes auroraMove {
+    0% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(60px) translateY(-20px); }
+    100% { transform: translateX(0) translateY(0); }
+  }
+
+  .stars {
+    position: absolute;
+    inset: 0;
+    background: transparent url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+    animation: twinkle 200s linear infinite;
+    z-index: 1;
+  }
+  @keyframes twinkle {
+    from { background-position: 0 0; }
+    to { background-position: -5000px 3000px; }
+  }
+
+  /* الحاوية */
+  .container {
+    position: relative;
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    max-width: 1000px;
+    padding: 0 20px;
+  }
+
+  /* الشعار */
+  h1 {
+    font-size: 6rem;
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 40px;
+    letter-spacing: -2px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0), 0 0 15px rgba(0,128,255,0.3);
+  }
+
+  /* الحقل */
+  form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  input[type="email"] {
+    width: 100%;
+    max-width: 900px; /* مثالية */
+    padding: 18px 25px;
+    font-size: 1.3rem;
+    border-radius: 40px;
+    border: 1px solid rgba(255,255,255,0.4);
+    outline: none;
+    background: rgba(255,255,255,0); /* شفاف */
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    transition: all 0.3s ease;
+  }
+  input[type="email"]:focus {
+    border-color: rgba(0, 140, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 140, 255, 0.4);
+  }
+  input::placeholder {
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* الوصف */
+  .description {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  /* الإشعار */
+  .notification {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(0,255,136,0.15);
+    border: 2px solid #00ff88;
+    border-radius: 15px;
+    padding: 15px 25px;
+    font-size: 1rem;
+    color: #00ff88;
+    text-align: center;
+    z-index: 3;
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+  .notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+</style>
+</head>
+<body>
+
+  <div class="aurora"></div>
+  <div class="stars"></div>
+
+  <div class="container">
+    <h1>Yoobify</h1>
+    <form id="signupForm">
+      <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+    </form>
+    <div class="description">انضم لقائمة الانتظار لتجربة محرك البحث الفريد.</div>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const notification = document.getElementById('notification');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const username = email.split('@')[0];
+
+      notification.textContent = `مرحبًا بك، ${username}! تم تسجيلك بنجاح.`;
+      notification.classList.add('show');
+
+      form.style.display = 'none';
+    });
+  </script>
+
+</body>
+</html>
